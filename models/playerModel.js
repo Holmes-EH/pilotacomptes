@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
-const userSchema = mongoose.Schema({
+const playerSchema = mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -13,10 +13,14 @@ const userSchema = mongoose.Schema({
 	isAdmin: {
 		type: Boolean,
 	},
+	password: {
+		type: String,
+	},
 })
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
+playerSchema.methods.matchPassword = async function (enteredPassword) {
 	return await bcrypt.compare(enteredPassword, this.password)
 }
 
-module.exports = mongoose.models.User || mongoose.model('User', userSchema)
+module.exports =
+	mongoose.models.Player || mongoose.model('Player', playerSchema)
