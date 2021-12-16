@@ -6,7 +6,8 @@
 			"@/styles/*": ["styles/*"],
 			"@/lib/*": ["lib/*"],
 			"@/controllers/*": ["controllers/*"],
-			"@/models/*": ["models/*"]
+			"@/models/*": ["models/*"],
+			"@/context/*": ["src/context/*"]
 		}
 	}
 }
