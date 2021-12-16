@@ -13,6 +13,16 @@ const periodeSchema = mongoose.Schema({
 		type: Boolean,
 	},
 	playersPaid: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+	numberOfPlayersPaid: {
+		type: Number,
+	},
+})
+
+periodeSchema.pre('save', async function (next) {
+	if (!this.isModified('playersPaid')) {
+		next()
+	}
+	this.numberOfPlayersPaid = this.playersPaid.length
 })
 
 module.exports =
