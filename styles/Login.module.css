@@ -1,0 +1,41 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+	padding: 3em 0;
+	background-color: var(--beer);
+	border: 2px solid;
+	border-radius: 5px;
+	box-shadow: 0 16px 40px rgb(0 0 0 / 15%);
+}
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	align-items: center;
+}
+.fieldset {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+	border: none;
+	width: 100%;
+}
+.fieldset label {
+	flex-grow: 1;
+}
+.fieldset input {
+	padding: 0.4em;
+}
+.login {
+	padding: 0.5em 1.5em;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: large;
+	background-color: var(--green);
+	color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+}

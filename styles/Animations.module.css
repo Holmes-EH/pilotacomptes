@@ -1,0 +1,54 @@
+.animationContainer {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	flex-grow: 1;
+}
+.ball {
+	width: 20px;
+	height: 20px;
+	background-color: black;
+	clip-path: ellipse(47% 47%);
+	animation: bounce 0.5s cubic-bezier(0.47, 0.06, 0.97, 0.6) alternate
+		infinite;
+}
+.shadow {
+	position: absolute;
+	top: 97%;
+	width: 70px;
+	height: 20px;
+	clip-path: ellipse(40% 50%);
+	background: radial-gradient(black, transparent, transparent);
+	animation: fade 0.5s cubic-bezier(0.47, 0.06, 0.97, 0.6) alternate infinite;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(-100px);
+		clip-path: ellipse(47% 47%);
+	}
+	95% {
+		clip-path: ellipse(47% 47%);
+	}
+	100% {
+		transform: translateY(0);
+		clip-path: ellipse(47% 30%);
+	}
+}
+
+@keyframes fade {
+	0% {
+		width: 0;
+		height: 0;
+	}
+	80% {
+		width: 0;
+		height: 0;
+	}
+	100% {
+		width: 70px;
+		height: 20px;
+	}
+}

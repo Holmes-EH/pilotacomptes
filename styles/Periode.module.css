@@ -1,0 +1,30 @@
+.periode {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	padding: 1em;
+	border-radius: 8px;
+	border: 2px solid var(--beer);
+	margin-bottom: 1em;
+}
+.date {
+	width: 100%;
+	flex-grow: 1;
+	display: flex;
+	justify-content: space-evenly;
+}
+.paid {
+	background-color: var(--green);
+	color: white;
+}
+.unpaid {
+	background-color: var(--red);
+	color: white;
+}
+.details {
+	font-size: 0.8em;
+}
+.periode p {
+	margin: 0;
+}
