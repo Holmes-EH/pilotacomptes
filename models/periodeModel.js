@@ -12,6 +12,12 @@ const periodeSchema = mongoose.Schema({
 	paid: {
 		type: Boolean,
 	},
+	paidDate: {
+		type: Date,
+	},
+	amount: {
+		type: Number,
+	},
 	playersPaid: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 	numberOfPlayersPaid: {
 		type: Number,
