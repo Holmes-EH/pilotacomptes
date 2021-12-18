@@ -74,6 +74,7 @@ const updatePeriode = async (req, res) => {
 		periode.playersPaid = req.body.playersPaid || periode.playersPaid
 		periode.paidDate = req.body.paidDate || periode.paidDate
 		periode.paid = req.body.paid ? true : false
+		periode.amount = req.body.amount || periode.amount
 
 		const savedPeriode = await periode.save()
 		const updatedPeriode = await Periode.findById(
