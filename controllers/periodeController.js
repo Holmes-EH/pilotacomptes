@@ -91,6 +91,7 @@ const updatePeriode = async (req, res) => {
 			numberOfPlayersPaid: updatedPeriode.numberOfPlayersPaid,
 			paid: updatedPeriode.paid,
 			paidDate: updatedPeriode.paidDate,
+			amount: updatedPeriode.amount,
 		})
 	} else {
 		res.status(404).json({
@@ -99,4 +100,17 @@ const updatePeriode = async (req, res) => {
 	}
 }
 
-export { getPeriodes, addNewPeriode, updatePeriode }
+// @desc    Delete Periode
+// @route   delete /api/periode
+// @access  Private + Admin
+const deletePeriode = async (req, res) => {
+	const periode = await Periode.findById(req.body._id)
+	if (periode) {
+		await periode.remove()
+		res.status(200).json({ message: 'Periode Supprimée' })
+	} else {
+		res.status(404).json({ message: 'Aucune période trouvée...' })
+	}
+}
+
+export { getPeriodes, addNewPeriode, updatePeriode, deletePeriode }
