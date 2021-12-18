@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import { globalContext } from '@/context/store'
 
 import styles from '@/styles/Login.module.css'
@@ -20,6 +21,7 @@ const Login = () => {
 				tel: formatTel(tel),
 				password,
 			})
+			localStorage.setItem('pilotaUser', JSON.stringify(data))
 			dispatch({ type: 'USER_LOGIN', payload: data })
 			dispatch({ type: 'DONE_LOADING' })
 		} catch (error) {
@@ -42,6 +44,7 @@ const Login = () => {
 				<fieldset className={styles.fieldset}>
 					<label htmlFor='password'>Mot de passe</label>
 					<input
+						inputMode='numeric'
 						type='password'
 						name='password'
 						value={password}

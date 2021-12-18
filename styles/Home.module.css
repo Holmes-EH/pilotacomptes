@@ -38,3 +38,12 @@
 .link svg {
 	font-size: 1.5em;
 }
+.addPeriode {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.addPeriode svg {
+	font-size: 2em;
+}

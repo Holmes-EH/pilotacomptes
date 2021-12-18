@@ -1,16 +1,44 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Login from '@/components/Login'
 import Loader from '@/components/Loader'
-import { IoBeer } from 'react-icons/io5'
+import { IoBeer, IoAddCircleOutline } from 'react-icons/io5'
 import styles from '../../styles/Home.module.css'
 
 import { globalContext } from '@/context/store'
+
 import Periode from '@/components/Periode'
+import { useEffect } from 'react'
 
 export default function Home() {
+	const router = useRouter()
 	const [state, dispatch] = globalContext()
-	const { user, loading, periodes } = state
+	const { user, loading, periodes, playerList } = state
+
+	useEffect(async () => {
+		if (playerList && playerList.length === 0) {
+			dispatch({ type: 'LOADING' })
+			try {
+				const { data } = await axios.get('/api/players')
+				dispatch({ type: 'LIST_PLAYERS', payload: data })
+				dispatch({ type: 'DONE_LOADING' })
+			} catch (error) {
+				dispatch({ type: 'DONE_LOADING' })
+			}
+		}
+		if (periodes && periodes.length === 0) {
+			dispatch({ type: 'LOADING' })
+			try {
+				const { data } = await axios.get('/api/periodes')
+				dispatch({ type: 'LIST_PERIODES', payload: data })
+				dispatch({ type: 'DONE_LOADING' })
+			} catch (error) {
+				dispatch({ type: 'DONE_LOADING' })
+			}
+		}
+	}, [])
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -32,11 +60,19 @@ export default function Home() {
 						</>
 					) : (
 						<>
-							<h1>Admin</h1>
-							<h2>Périodes enregistrées</h2>
+							<h2>Périodes en cours</h2>
 							{periodes.map((periode) => (
 								<Periode key={periode._id} periode={periode} />
 							))}
+							<div
+								className={styles.addPeriode}
+								onClick={() => {
+									router.push('/admin/periode/new')
+								}}
+							>
+								<IoAddCircleOutline />
+								Ajouter un trimestre
+							</div>
 						</>
 					)}
 				</main>

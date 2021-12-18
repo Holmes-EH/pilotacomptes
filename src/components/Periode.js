@@ -2,8 +2,12 @@ import { useRouter } from 'next/router'
 import { IoArrowForwardOutline } from 'react-icons/io5'
 import styles from '@/styles/Periode.module.css'
 
+import { globalContext } from '@/context/store'
+
 const Periode = ({ periode }) => {
-	const { start, end, paid, amount, playersPaid } = periode
+	const [state] = globalContext()
+	const { playerList } = state
+	const { start, end, paid, playersPaid } = periode
 	const router = useRouter()
 	const dateToMonth = (date) => {
 		return new Date(date).toLocaleDateString('fr-FR', {
@@ -30,7 +34,10 @@ const Periode = ({ periode }) => {
 				</p>
 			</div>
 			<div className={styles.details}>
-				<p>{playersPaid.length} joueurs ont payé</p>
+				<p>
+					{playersPaid.length} joueurs ont payé sur{' '}
+					{playerList.length}
+				</p>
 			</div>
 		</div>
 	)

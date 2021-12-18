@@ -2,6 +2,7 @@ import {
 	getPeriodes,
 	addNewPeriode,
 	updatePeriode,
+	deletePeriode,
 } from '@/controllers/periodeController'
 import dbConnect from '@/lib/dbConnect'
 import nc from 'next-connect'
@@ -20,6 +21,9 @@ handler
 	})
 	.put(protect, admin, async (req, res) => {
 		await updatePeriode(req, res)
+	})
+	.delete(protect, admin, async (req, res) => {
+		await deletePeriode(req, res)
 	})
 
 export default handler

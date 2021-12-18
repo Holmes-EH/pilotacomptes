@@ -11,6 +11,9 @@ export function AppWrapper({ children }) {
 		periodes: [],
 		loading: false,
 	}
+	if (typeof window !== 'undefined') {
+		initialState.user = JSON.parse(localStorage.getItem('pilotaUser'))
+	}
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 	return (

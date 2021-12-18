@@ -1,0 +1,51 @@
+.twoColumns {
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-gap: 1em;
+	gap: 1em;
+	padding: 10px;
+	border: 1px solid var(--beer);
+	margin-bottom: 5px;
+	border-radius: 10px;
+}
+.monthSelect {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.paidList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+	justify-content: space-evenly;
+	margin-bottom: 1em;
+	padding-bottom: 2em;
+	border-bottom: 1px solid;
+}
+.player {
+	padding: 1em 1.3em;
+	border: 1px solid var(--beer);
+	border-radius: 5px;
+	color: white;
+}
+.hasPaid {
+	background-color: var(--green);
+}
+.hasNotPaid {
+	background-color: var(--red);
+}
+.button {
+	font-size: 2em;
+	background: var(--green);
+	border: none;
+	display: flex;
+	padding: 6px;
+	border-radius: 10px;
+	color: white;
+	box-shadow: rgb(0 0 0 / 19%) 0px 10px 20px, rgb(0 0 0 / 23%) 0px 6px 6px;
+}
+.danger {
+	background: var(--red);
+}
