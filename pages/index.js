@@ -61,7 +61,7 @@ export default function Home() {
 			}
 		}
 		fetchData()
-	})
+	}, [periodes, dispatch, playerList])
 
 	return (
 		<div className={styles.container}>
