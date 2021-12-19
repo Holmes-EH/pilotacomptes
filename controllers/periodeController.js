@@ -4,6 +4,24 @@ import dbConnect from '@/lib/dbConnect'
 
 dbConnect()
 
+// @desc    Get single periode
+// @route   GET /api/periodes/[id]
+// @access  Protect + Admin
+const getPeriode = async (req, res) => {
+	const periode = await Periode.findById(req.query.id).populate({
+		path: 'playersPaid',
+		select: ['name', 'tel'],
+		model: Player,
+	})
+	if (periode) {
+		res.json(periode)
+	} else {
+		res.status(404).json({
+			message: 'Session introuvable...',
+		})
+	}
+}
+
 // @desc    Get periodes
 // @route   GET /api/periodes
 // @access  Public
@@ -114,4 +132,4 @@ const deletePeriode = async (req, res) => {
 	}
 }
 
-export { getPeriodes, addNewPeriode, updatePeriode, deletePeriode }
+export { getPeriode, getPeriodes, addNewPeriode, updatePeriode, deletePeriode }
