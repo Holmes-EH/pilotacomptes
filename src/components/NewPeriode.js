@@ -47,7 +47,7 @@ const NewPeriode = ({ periode }) => {
 			const { data } = await axios.put(
 				'/api/periodes',
 				{
-					_id: pid,
+					_id: periode._id,
 					start: newStart,
 					end: newEnd,
 					paid: newPaid,
@@ -58,7 +58,9 @@ const NewPeriode = ({ periode }) => {
 				config
 			)
 			setEdited(false)
-			let updatedPeriodeList = periodes.filter((el) => el._id !== pid)
+			let updatedPeriodeList = periodes.filter(
+				(el) => el._id !== periode._id
+			)
 			updatedPeriodeList.push(data)
 			updatedPeriodeList.sort((a, b) =>
 				a.start > b.start ? 1 : b.start > a.start ? -1 : 0
@@ -86,12 +88,14 @@ const NewPeriode = ({ periode }) => {
 			dispatch({ type: 'LOADING' })
 			try {
 				await axios.delete('/api/periodes', {
-					data: { _id: pid },
+					data: { _id: periode._id },
 					headers: {
 						Authorization: `Bearer ${user.token}`,
 					},
 				})
-				let updatedPeriodeList = periodes.filter((el) => el._id !== pid)
+				let updatedPeriodeList = periodes.filter(
+					(el) => el._id !== periode._id
+				)
 				dispatch({ type: 'LIST_PERIODES', payload: updatedPeriodeList })
 				dispatch({ type: 'DONE_LOADING' })
 			} catch (error) {
