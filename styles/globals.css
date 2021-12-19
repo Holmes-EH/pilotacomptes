@@ -23,3 +23,10 @@ a {
 	--beer: #e5bd35;
 	--red: #ba0802;
 }
+
+.error {
+	background-color: var(--red);
+}
+.success {
+	background-color: var(--green);
+}

@@ -9,6 +9,7 @@ export function AppWrapper({ children }) {
 		user: {},
 		playerList: [],
 		periodes: [],
+		message: {},
 		loading: false,
 	}
 	if (typeof window !== 'undefined') {
