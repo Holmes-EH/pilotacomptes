@@ -30,6 +30,51 @@ const NewPeriode = () => {
 			router.push('/')
 		}
 	})
+	useEffect(() => {
+		async function fetchData() {
+			if (playerList && playerList.length === 0) {
+				dispatch({ type: 'LOADING' })
+				try {
+					const { data } = await axios.get('/api/players')
+					dispatch({ type: 'LIST_PLAYERS', payload: data })
+					dispatch({ type: 'DONE_LOADING' })
+				} catch (error) {
+					dispatch({ type: 'DONE_LOADING' })
+					dispatch({
+						type: 'MESSAGE',
+						payload: {
+							type: 'error',
+							text:
+								error.response && error.response.data.message
+									? error.response.data.message
+									: error.message,
+						},
+					})
+				}
+			}
+			if (periodes && periodes.length === 0) {
+				dispatch({ type: 'LOADING' })
+				try {
+					const { data } = await axios.get('/api/periodes')
+					dispatch({ type: 'LIST_PERIODES', payload: data })
+					dispatch({ type: 'DONE_LOADING' })
+				} catch (error) {
+					dispatch({ type: 'DONE_LOADING' })
+					dispatch({
+						type: 'MESSAGE',
+						payload: {
+							type: 'error',
+							text:
+								error.response && error.response.data.message
+									? error.response.data.message
+									: error.message,
+						},
+					})
+				}
+			}
+		}
+		fetchData()
+	}, [periodes, dispatch, playerList])
 
 	const updatePaidList = (player) => {
 		setEdited(true)
