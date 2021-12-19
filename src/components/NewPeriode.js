@@ -67,6 +67,7 @@ const NewPeriode = ({ periode }) => {
 			)
 			dispatch({ type: 'LIST_PERIODES', payload: updatedPeriodeList })
 			dispatch({ type: 'DONE_LOADING' })
+			router.push('/admin')
 		} catch (error) {
 			dispatch({ type: 'DONE_LOADING' })
 			dispatch({
