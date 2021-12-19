@@ -17,7 +17,7 @@ export default function Home() {
 
 	const { playerList, loading, periodes, message } = state
 
-	useEffect(async () => {
+	useEffect(() => {
 		async function fetchData() {
 			if (playerList && playerList.length === 0) {
 				dispatch({ type: 'LOADING' })
