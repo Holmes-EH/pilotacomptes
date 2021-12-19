@@ -3,10 +3,12 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Login from '@/components/Login'
 import Loader from '@/components/Loader'
+import Toaster from '@/components/Toaster'
 import { IoBeer, IoAddCircleOutline } from 'react-icons/io5'
 import styles from '../../styles/Home.module.css'
 
 import { globalContext } from '@/context/store'
+import axios from 'axios'
 
 import Periode from '@/components/Periode'
 import { useEffect } from 'react'
@@ -14,7 +16,7 @@ import { useEffect } from 'react'
 export default function Home() {
 	const router = useRouter()
 	const [state, dispatch] = globalContext()
-	const { user, loading, periodes, playerList } = state
+	const { user, loading, periodes, playerList, message } = state
 
 	useEffect(async () => {
 		if (playerList && playerList.length === 0) {
@@ -25,6 +27,16 @@ export default function Home() {
 				dispatch({ type: 'DONE_LOADING' })
 			} catch (error) {
 				dispatch({ type: 'DONE_LOADING' })
+				dispatch({
+					type: 'MESSAGE',
+					payload: {
+						type: 'error',
+						text:
+							error.response && error.response.data.message
+								? error.response.data.message
+								: error.message,
+					},
+				})
 			}
 		}
 		if (periodes && periodes.length === 0) {
@@ -35,6 +47,16 @@ export default function Home() {
 				dispatch({ type: 'DONE_LOADING' })
 			} catch (error) {
 				dispatch({ type: 'DONE_LOADING' })
+				dispatch({
+					type: 'MESSAGE',
+					payload: {
+						type: 'error',
+						text:
+							error.response && error.response.data.message
+								? error.response.data.message
+								: error.message,
+					},
+				})
 			}
 		}
 	}, [])
@@ -53,7 +75,8 @@ export default function Home() {
 				<Loader />
 			) : (
 				<main className={styles.main}>
-					{user && !user.token ? (
+					{message && message.text && <Toaster />}
+					{typeof user === 'undefined' || user === null ? (
 						<>
 							<h1>Connectatzen</h1>
 							<Login />

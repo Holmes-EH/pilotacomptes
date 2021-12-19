@@ -25,7 +25,17 @@ const Login = () => {
 			dispatch({ type: 'USER_LOGIN', payload: data })
 			dispatch({ type: 'DONE_LOADING' })
 		} catch (error) {
-			console.error(error)
+			dispatch({ type: 'DONE_LOADING' })
+			dispatch({
+				type: 'MESSAGE',
+				payload: {
+					type: 'error',
+					text:
+						error.response && error.response.data.message
+							? error.response.data.message
+							: error.message,
+				},
+			})
 		}
 	}
 	return (
