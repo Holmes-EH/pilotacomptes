@@ -5,7 +5,7 @@ import styles from '@/styles/Periode.module.css'
 import { globalContext } from '@/context/store'
 
 const Periode = ({ periode }) => {
-	const [state] = globalContext()
+	const [state, dispatch] = globalContext()
 	const { playerList } = state
 	const { start, end, paid, playersPaid } = periode
 	const router = useRouter()
@@ -20,7 +20,10 @@ const Periode = ({ periode }) => {
 			className={`${styles.periode} ${
 				paid ? styles.paid : styles.unpaid
 			}`}
-			onClick={() => router.push(`/admin/periode/${periode._id}`)}
+			onClick={() => {
+				dispatch({ type: 'LOADING' })
+				router.push(`/admin/periode/${periode._id}`)
+			}}
 		>
 			<div className={styles.date}>
 				<p style={{ paddingRight: '5px' }}>
