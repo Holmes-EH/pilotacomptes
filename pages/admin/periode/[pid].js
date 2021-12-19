@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Loader from '@/components/Loader'
 
@@ -35,6 +35,12 @@ const Periode = () => {
 	const [newPaidDate, setNewPaidDate] = useState(paidDate)
 	const [newPlayersPaid, setNewPlayersPaid] = useState(playersPaid)
 	const [edited, setEdited] = useState(false)
+
+	useEffect(() => {
+		if (typeof user === 'undefined' || user === null || !user.isAdmin) {
+			router.push('/')
+		}
+	})
 
 	const updatePaidList = (player) => {
 		setEdited(true)
@@ -81,6 +87,16 @@ const Periode = () => {
 			dispatch({ type: 'DONE_LOADING' })
 		} catch (error) {
 			dispatch({ type: 'DONE_LOADING' })
+			dispatch({
+				type: 'MESSAGE',
+				payload: {
+					type: 'error',
+					text:
+						error.response && error.response.data.message
+							? error.response.data.message
+							: error.message,
+				},
+			})
 		}
 	}
 
@@ -100,6 +116,16 @@ const Periode = () => {
 				dispatch({ type: 'DONE_LOADING' })
 			} catch (error) {
 				dispatch({ type: 'DONE_LOADING' })
+				dispatch({
+					type: 'MESSAGE',
+					payload: {
+						type: 'error',
+						text:
+							error.response && error.response.data.message
+								? error.response.data.message
+								: error.message,
+					},
+				})
 			}
 		}
 	}

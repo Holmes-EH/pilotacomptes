@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Loader from '@/components/Loader'
 
@@ -24,6 +24,12 @@ const NewPeriode = () => {
 	const [newPaidDate, setNewPaidDate] = useState('')
 	const [newPlayersPaid, setNewPlayersPaid] = useState([])
 	const [edited, setEdited] = useState(false)
+
+	useEffect(() => {
+		if (typeof user === 'undefined' || user === null || !user.isAdmin) {
+			router.push('/')
+		}
+	})
 
 	const updatePaidList = (player) => {
 		setEdited(true)
@@ -70,6 +76,16 @@ const NewPeriode = () => {
 			router.push('/admin')
 		} catch (error) {
 			dispatch({ type: 'DONE_LOADING' })
+			dispatch({
+				type: 'MESSAGE',
+				payload: {
+					type: 'error',
+					text:
+						error.response && error.response.data.message
+							? error.response.data.message
+							: error.message,
+				},
+			})
 		}
 	}
 
@@ -122,71 +138,72 @@ const NewPeriode = () => {
 						<IoArrowBack />
 						Retour
 					</div>
-					<div className={styles.twoColumns}>
-						<div className={styles.monthSelect}>
-							Début :
-							<select
-								name='start'
-								value={new Date(newStart).getMonth() + 1}
-								onChange={(e) => {
-									setNewStart(
-										`${new Date().getFullYear()}-${
-											e.target.value
-										}`
-									)
-									setEdited(true)
-								}}
-							>
-								<option value='0' selected>
-									--Choisis le mois--
-								</option>
-								<option value='1'>Janvier</option>
-								<option value='2'>Février</option>
-								<option value='3'>Mars</option>
-								<option value='4'>Avril</option>
-								<option value='5'>Mai</option>
-								<option value='6'>Juin</option>
-								<option value='7'>Juillet</option>
-								<option value='8'>Août</option>
-								<option value='9'>Septembre</option>
-								<option value='10'>Octobre</option>
-								<option value='11'>Novembre</option>
-								<option value='12'>Décembre</option>
-							</select>
+
+					<div style={{ width: '100%', maxWidth: '600px' }}>
+						<div className={styles.twoColumns}>
+							<div className={styles.monthSelect}>
+								Début :
+								<select
+									name='start'
+									value={new Date(newStart).getMonth() + 1}
+									onChange={(e) => {
+										setNewStart(
+											`${new Date().getFullYear()}-${
+												e.target.value
+											}`
+										)
+										setEdited(true)
+									}}
+								>
+									<option value='0' selected>
+										--Choisis le mois--
+									</option>
+									<option value='1'>Janvier</option>
+									<option value='2'>Février</option>
+									<option value='3'>Mars</option>
+									<option value='4'>Avril</option>
+									<option value='5'>Mai</option>
+									<option value='6'>Juin</option>
+									<option value='7'>Juillet</option>
+									<option value='8'>Août</option>
+									<option value='9'>Septembre</option>
+									<option value='10'>Octobre</option>
+									<option value='11'>Novembre</option>
+									<option value='12'>Décembre</option>
+								</select>
+							</div>
+							<div className={styles.monthSelect}>
+								Fin :
+								<select
+									name='end'
+									value={new Date(newEnd).getMonth() + 1}
+									onChange={(e) => {
+										setNewEnd(
+											`${new Date().getFullYear()}-${
+												e.target.value
+											}`
+										)
+										setEdited(true)
+									}}
+								>
+									<option value='0' selected>
+										--Choisis le mois--
+									</option>
+									<option value='1'>Janvier</option>
+									<option value='2'>Février</option>
+									<option value='3'>Mars</option>
+									<option value='4'>Avril</option>
+									<option value='5'>Mai</option>
+									<option value='6'>Juin</option>
+									<option value='7'>Juillet</option>
+									<option value='8'>Août</option>
+									<option value='9'>Septembre</option>
+									<option value='10'>Octobre</option>
+									<option value='11'>Novembre</option>
+									<option value='12'>Décembre</option>
+								</select>
+							</div>
 						</div>
-						<div className={styles.monthSelect}>
-							Fin :
-							<select
-								name='end'
-								value={new Date(newEnd).getMonth() + 1}
-								onChange={(e) => {
-									setNewEnd(
-										`${new Date().getFullYear()}-${
-											e.target.value
-										}`
-									)
-									setEdited(true)
-								}}
-							>
-								<option value='0' selected>
-									--Choisis le mois--
-								</option>
-								<option value='1'>Janvier</option>
-								<option value='2'>Février</option>
-								<option value='3'>Mars</option>
-								<option value='4'>Avril</option>
-								<option value='5'>Mai</option>
-								<option value='6'>Juin</option>
-								<option value='7'>Juillet</option>
-								<option value='8'>Août</option>
-								<option value='9'>Septembre</option>
-								<option value='10'>Octobre</option>
-								<option value='11'>Novembre</option>
-								<option value='12'>Décembre</option>
-							</select>
-						</div>
-					</div>
-					<div style={{ width: '100%' }}>
 						<div className={styles.twoColumns}>
 							<label htmlFor='paid'>Période payée</label>
 							<input
