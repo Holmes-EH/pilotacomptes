@@ -271,13 +271,13 @@ const NewPeriode = () => {
 				</main>
 			)}
 			<footer className={homeStyles.footer}>
-				<Link href='/'>
+				<Link href='/' passHref>
 					<div className={homeStyles.link}>
 						<IoBeer />
 						HOME
 					</div>
 				</Link>
-				<Link href='/admin'>
+				<Link href='/admin' passHref>
 					<div className={homeStyles.link}>
 						<IoConstruct />
 						ADMIN

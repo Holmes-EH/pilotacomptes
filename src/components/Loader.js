@@ -8,7 +8,7 @@ const Loader = () => {
 				<div className={animations.ball}></div>
 				<div className={animations.shadow}></div>
 			</div>
-			<h3>On s'échauffe ...</h3>
+			<h3>On s&apos;échauffe ...</h3>
 		</main>
 	)
 }

@@ -18,48 +18,51 @@ export default function Home() {
 	const [state, dispatch] = globalContext()
 	const { user, loading, periodes, playerList, message } = state
 
-	useEffect(async () => {
-		if (playerList && playerList.length === 0) {
-			dispatch({ type: 'LOADING' })
-			try {
-				const { data } = await axios.get('/api/players')
-				dispatch({ type: 'LIST_PLAYERS', payload: data })
-				dispatch({ type: 'DONE_LOADING' })
-			} catch (error) {
-				dispatch({ type: 'DONE_LOADING' })
-				dispatch({
-					type: 'MESSAGE',
-					payload: {
-						type: 'error',
-						text:
-							error.response && error.response.data.message
-								? error.response.data.message
-								: error.message,
-					},
-				})
+	useEffect(() => {
+		async function fetchData() {
+			if (playerList && playerList.length === 0) {
+				dispatch({ type: 'LOADING' })
+				try {
+					const { data } = await axios.get('/api/players')
+					dispatch({ type: 'LIST_PLAYERS', payload: data })
+					dispatch({ type: 'DONE_LOADING' })
+				} catch (error) {
+					dispatch({ type: 'DONE_LOADING' })
+					dispatch({
+						type: 'MESSAGE',
+						payload: {
+							type: 'error',
+							text:
+								error.response && error.response.data.message
+									? error.response.data.message
+									: error.message,
+						},
+					})
+				}
+			}
+			if (periodes && periodes.length === 0) {
+				dispatch({ type: 'LOADING' })
+				try {
+					const { data } = await axios.get('/api/periodes')
+					dispatch({ type: 'LIST_PERIODES', payload: data })
+					dispatch({ type: 'DONE_LOADING' })
+				} catch (error) {
+					dispatch({ type: 'DONE_LOADING' })
+					dispatch({
+						type: 'MESSAGE',
+						payload: {
+							type: 'error',
+							text:
+								error.response && error.response.data.message
+									? error.response.data.message
+									: error.message,
+						},
+					})
+				}
 			}
 		}
-		if (periodes && periodes.length === 0) {
-			dispatch({ type: 'LOADING' })
-			try {
-				const { data } = await axios.get('/api/periodes')
-				dispatch({ type: 'LIST_PERIODES', payload: data })
-				dispatch({ type: 'DONE_LOADING' })
-			} catch (error) {
-				dispatch({ type: 'DONE_LOADING' })
-				dispatch({
-					type: 'MESSAGE',
-					payload: {
-						type: 'error',
-						text:
-							error.response && error.response.data.message
-								? error.response.data.message
-								: error.message,
-					},
-				})
-			}
-		}
-	}, [])
+		fetchData()
+	})
 
 	return (
 		<div className={styles.container}>
@@ -102,7 +105,7 @@ export default function Home() {
 			)}
 
 			<footer className={styles.footer}>
-				<Link href='/'>
+				<Link href='/' passHref>
 					<div className={styles.link}>
 						<IoBeer />
 						HOME
