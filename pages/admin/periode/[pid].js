@@ -21,7 +21,7 @@ const Periode = ({ data }) => {
 		if (typeof user === 'undefined' || user === null || !user.isAdmin) {
 			router.push('/')
 		}
-	}, [dispatch])
+	}, [dispatch, user])
 
 	useEffect(() => {
 		async function fetchData() {
