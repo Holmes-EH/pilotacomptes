@@ -12,13 +12,13 @@ import { IoBeer, IoConstruct, IoArrowBack, IoSaveSharp } from 'react-icons/io5'
 import homeStyles from '@/styles/Home.module.css'
 import styles from '@/styles/Pid.module.css'
 
-const NewPeriode = () => {
+const AddNewPeriode = () => {
 	const router = useRouter()
 	const [state, dispatch] = globalContext()
 	const { user, loading, playerList, periodes } = state
 
-	const [newStart, setNewStart] = useState('')
-	const [newEnd, setNewEnd] = useState('')
+	const [newStart, setNewStart] = useState('0')
+	const [newEnd, setNewEnd] = useState('0')
 	const [newPaid, setNewPaid] = useState(false)
 	const [newAmount, setNewAmount] = useState(0)
 	const [newPaidDate, setNewPaidDate] = useState('')
@@ -184,23 +184,35 @@ const NewPeriode = () => {
 						Retour
 					</div>
 
-					<div style={{ width: '100%', maxWidth: '600px' }}>
+					<div
+						style={{
+							width: '100%',
+							maxWidth: '600px',
+							paddingTop: '20px',
+						}}
+					>
 						<div className={styles.twoColumns}>
 							<div className={styles.monthSelect}>
 								Début :
 								<select
 									name='start'
-									value={new Date(newStart).getMonth() + 1}
+									value={
+										newStart === '0'
+											? '0'
+											: new Date(newStart).getMonth() + 1
+									}
 									onChange={(e) => {
 										setNewStart(
 											`${new Date().getFullYear()}-${
-												e.target.value
+												e.target.value.length === 2
+													? e.target.value
+													: `0${e.target.value}`
 											}`
 										)
 										setEdited(true)
 									}}
 								>
-									<option value='0' selected>
+									<option value='0'>
 										--Choisis le mois--
 									</option>
 									<option value='1'>Janvier</option>
@@ -221,17 +233,23 @@ const NewPeriode = () => {
 								Fin :
 								<select
 									name='end'
-									value={new Date(newEnd).getMonth() + 1}
+									value={
+										newEnd === '0'
+											? '0'
+											: new Date(newEnd).getMonth() + 1
+									}
 									onChange={(e) => {
 										setNewEnd(
 											`${new Date().getFullYear()}-${
-												e.target.value
+												e.target.value.length === 2
+													? e.target.value
+													: `0${e.target.value}`
 											}`
 										)
 										setEdited(true)
 									}}
 								>
-									<option value='0' selected>
+									<option value='13'>
 										--Choisis le mois--
 									</option>
 									<option value='1'>Janvier</option>
@@ -265,6 +283,7 @@ const NewPeriode = () => {
 							<label htmlFor='amount'>Montant Payé</label>
 							<input
 								type='number'
+								inputMode='numeric'
 								name='amount'
 								value={newAmount}
 								onChange={(e) => {
@@ -333,4 +352,4 @@ const NewPeriode = () => {
 	)
 }
 
-export default NewPeriode
+export default AddNewPeriode

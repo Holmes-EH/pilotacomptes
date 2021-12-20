@@ -149,7 +149,9 @@ const NewPeriode = ({ periode }) => {
 				Retour
 			</div>
 
-			<div style={{ width: '100%', maxWidth: '600px' }}>
+			<div
+				style={{ width: '100%', maxWidth: '600px', paddingTop: '20px' }}
+			>
 				<div className={styles.twoColumns}>
 					<div className={styles.monthSelect}>
 						Début :
@@ -228,6 +230,7 @@ const NewPeriode = ({ periode }) => {
 					<label htmlFor='amount'>Montant Payé</label>
 					<input
 						type='number'
+						inputMode='numeric'
 						name='amount'
 						value={newAmount}
 						onChange={(e) => {
