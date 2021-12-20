@@ -159,7 +159,9 @@ const NewPeriode = ({ periode }) => {
 							onChange={(e) => {
 								setNewStart(
 									`${new Date().getFullYear()}-${
-										e.target.value
+										e.target.value.length === 2
+											? e.target.value
+											: `0${e.target.value}`
 									}`
 								)
 								setEdited(true)
@@ -185,7 +187,13 @@ const NewPeriode = ({ periode }) => {
 							name='end'
 							value={new Date(newEnd).getMonth() + 1}
 							onChange={(e) => {
-								setNewEnd(e.target.value)
+								setNewEnd(
+									`${new Date().getFullYear()}-${
+										e.target.value.length === 2
+											? e.target.value
+											: `0${e.target.value}`
+									}`
+								)
 								setEdited(true)
 							}}
 						>
