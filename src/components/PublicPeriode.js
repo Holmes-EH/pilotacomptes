@@ -29,6 +29,7 @@ const PublicPeriode = ({ periode }) => {
 			className={`${styles.periode} ${
 				paid ? styles.paid : styles.unpaid
 			}`}
+			onClick={() => setShowDetails(!showDetails)}
 		>
 			<div className={styles.date}>
 				<p style={{ paddingRight: '5px' }}>
@@ -56,10 +57,7 @@ const PublicPeriode = ({ periode }) => {
 					<b>{amount / playerList.length} €</b>
 				</p>
 			</div>
-			<div
-				onClick={() => setShowDetails(!showDetails)}
-				className={styles.recapDetails}
-			>
+			<div className={styles.recapDetails}>
 				<div>
 					{showDetails ? (
 						<IoChevronUpCircleOutline />
@@ -71,7 +69,7 @@ const PublicPeriode = ({ periode }) => {
 					<div className={styles.recapTable}>
 						<div style={{ width: '100%' }}>
 							<p className={styles.recapHeader}>
-								Ont payés <span>({playersPaid.length})</span>
+								Ont payé <span>({playersPaid.length})</span>
 							</p>
 							{playersPaid.map((player) => {
 								return <p key={player._id}>{player.name}</p>

@@ -25,6 +25,7 @@
 	border-bottom: 1px solid;
 }
 .player {
+	cursor: pointer;
 	padding: 1em 1.3em;
 	border: 1px solid var(--beer);
 	border-radius: 5px;
@@ -37,6 +38,7 @@
 	background-color: var(--red);
 }
 .button {
+	cursor: pointer;
 	font-size: 2em;
 	background: var(--green);
 	border: none;
@@ -48,4 +50,10 @@
 }
 .danger {
 	background: var(--red);
+}
+@media (hover: hover) and (pointer: fine) {
+	.button:hover,
+	.player:hover {
+		opacity: 0.8;
+	}
 }

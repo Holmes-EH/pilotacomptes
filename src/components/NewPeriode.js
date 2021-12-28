@@ -142,6 +142,7 @@ const NewPeriode = ({ periode }) => {
 					position: 'absolute',
 					top: '6px',
 					left: '1em',
+					cursor: 'pointer',
 				}}
 				onClick={() => confirmLeave()}
 			>
