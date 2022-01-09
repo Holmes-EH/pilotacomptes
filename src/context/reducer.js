@@ -7,7 +7,7 @@ export default function reducer(state, action) {
 		case 'USER_LOGIN':
 			return { ...state, user: action.payload }
 		case 'USER_LOGOUT':
-			return { ...state, user: {} }
+			return { ...state, user: null }
 		case 'LOADING':
 			return { ...state, loading: true }
 		case 'DONE_LOADING':

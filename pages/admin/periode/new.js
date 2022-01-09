@@ -8,7 +8,13 @@ import Loader from '@/components/Loader'
 
 import { globalContext } from '@/context/store'
 
-import { IoBeer, IoConstruct, IoArrowBack, IoSaveSharp } from 'react-icons/io5'
+import {
+	IoBeer,
+	IoConstruct,
+	IoArrowBack,
+	IoSaveSharp,
+	IoExit,
+} from 'react-icons/io5'
 import homeStyles from '@/styles/Home.module.css'
 import styles from '@/styles/Pid.module.css'
 
@@ -24,6 +30,11 @@ const AddNewPeriode = () => {
 	const [newPaidDate, setNewPaidDate] = useState('')
 	const [newPlayersPaid, setNewPlayersPaid] = useState([])
 	const [edited, setEdited] = useState(false)
+
+	const logoutUser = () => {
+		localStorage.removeItem('pilotaUser')
+		dispatch({ type: 'USER_LOGOUT' })
+	}
 
 	useEffect(() => {
 		if (typeof user === 'undefined' || user === null || !user.isAdmin) {
@@ -347,6 +358,12 @@ const AddNewPeriode = () => {
 						ADMIN
 					</div>
 				</Link>
+				{user && user._id && (
+					<div className={homeStyles.link} onClick={logoutUser}>
+						<IoExit />
+						DECONNEXION
+					</div>
+				)}
 			</footer>
 		</div>
 	)

@@ -42,21 +42,28 @@ const PublicPeriode = ({ periode }) => {
 						dateToMonth(end).slice(1)}
 				</p>
 			</div>
-			<div className={styles.details}>
-				<p>
-					Cotisation réglée le{' '}
-					{new Date(paidDate).toLocaleDateString('fr-FR', {
-						day: 'numeric',
-						month: 'short',
-					})}
-					{' = '}
-					<b>{amount} €</b>
-				</p>
-				<p>
-					Montant dû par joueur ={' '}
-					<b>{amount / playerList.length} €</b>
-				</p>
-			</div>
+			{paid ? (
+				<div className={styles.details}>
+					<p>
+						Cotisation réglée le{' '}
+						{new Date(paidDate).toLocaleDateString('fr-FR', {
+							day: 'numeric',
+							month: 'short',
+						})}
+						{' = '}
+						<b>{amount} €</b>
+					</p>
+					<p>
+						Montant dû par joueur ={' '}
+						<b>{amount / playerList.length} €</b>
+					</p>
+				</div>
+			) : (
+				<div className={styles.details}>
+					<p>Cotisation non payée</p>
+				</div>
+			)}
+
 			<div className={styles.recapDetails}>
 				<div>
 					{showDetails ? (

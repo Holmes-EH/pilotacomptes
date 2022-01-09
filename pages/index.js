@@ -4,7 +4,7 @@ import PublicPeriode from '@/components/PublicPeriode'
 import Loader from '@/components/Loader'
 import Toaster from '@/components/Toaster'
 import Logo from '../public/icons/icon.svg'
-import { IoConstruct } from 'react-icons/io5'
+import { IoConstruct, IoExit } from 'react-icons/io5'
 import styles from '../styles/Home.module.css'
 
 import { globalContext } from '@/context/store'
@@ -15,7 +15,12 @@ import { useEffect } from 'react'
 export default function Home() {
 	const [state, dispatch] = globalContext()
 
-	const { playerList, loading, periodes, message } = state
+	const { playerList, loading, periodes, message, user } = state
+
+	const logoutUser = () => {
+		localStorage.removeItem('pilotaUser')
+		dispatch({ type: 'USER_LOGOUT' })
+	}
 
 	useEffect(() => {
 		async function fetchData() {
@@ -82,7 +87,7 @@ export default function Home() {
 					typeof periode.start !== 'undefined' ? (
 						<PublicPeriode key={periode._id} periode={periode} />
 					) : (
-						<h3 key={'noPeriode'}>Aucun trimestre trouvée...</h3>
+						<h3 key={'noPeriode'}>Aucun trimestre trouvé...</h3>
 					)
 				)}
 			</main>
@@ -94,6 +99,12 @@ export default function Home() {
 						ADMIN
 					</div>
 				</Link>
+				{user && user._id && (
+					<div className={styles.link} onClick={logoutUser}>
+						<IoExit />
+						EXIT
+					</div>
+				)}
 			</footer>
 		</div>
 	)

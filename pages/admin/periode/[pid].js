@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import Loader from '@/components/Loader'
 import NewPeriode from '@/components/NewPeriode'
 
 import { globalContext } from '@/context/store'
 
-import { IoBeer, IoConstruct } from 'react-icons/io5'
+import { IoBeer, IoConstruct, IoExit } from 'react-icons/io5'
 import homeStyles from '@/styles/Home.module.css'
 import styles from '@/styles/Pid.module.css'
 import axios from 'axios'
@@ -15,6 +15,11 @@ import axios from 'axios'
 const Periode = ({ data }) => {
 	const [state, dispatch] = globalContext()
 	const { user, playerList, loading, periodes } = state
+
+	const logoutUser = () => {
+		localStorage.removeItem('pilotaUser')
+		dispatch({ type: 'USER_LOGOUT' })
+	}
 
 	useEffect(() => {
 		dispatch({ type: 'DONE_LOADING' })
@@ -102,6 +107,12 @@ const Periode = ({ data }) => {
 						ADMIN
 					</div>
 				</Link>
+				{user && user._id && (
+					<div className={homeStyles.link} onClick={logoutUser}>
+						<IoExit />
+						DECONNEXION
+					</div>
+				)}
 			</footer>
 		</div>
 	)

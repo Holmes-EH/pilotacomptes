@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Login from '@/components/Login'
 import Loader from '@/components/Loader'
 import Toaster from '@/components/Toaster'
-import { IoBeer, IoAddCircleOutline } from 'react-icons/io5'
+import { IoBeer, IoAddCircleOutline, IoExit } from 'react-icons/io5'
 import styles from '../../styles/Home.module.css'
 
 import { globalContext } from '@/context/store'
@@ -17,6 +17,11 @@ export default function Home() {
 	const router = useRouter()
 	const [state, dispatch] = globalContext()
 	const { user, loading, periodes, playerList, message } = state
+
+	const logoutUser = () => {
+		localStorage.removeItem('pilotaUser')
+		dispatch({ type: 'USER_LOGOUT' })
+	}
 
 	useEffect(() => {
 		async function fetchData() {
@@ -95,7 +100,7 @@ export default function Home() {
 									/>
 								) : (
 									<h3 key={'noPeriode'}>
-										Aucun trimestre trouvée ...
+										Aucun trimestre trouvé...
 									</h3>
 								)
 							)}
@@ -120,6 +125,12 @@ export default function Home() {
 						HOME
 					</div>
 				</Link>
+				{user && user._id && (
+					<div className={styles.link} onClick={logoutUser}>
+						<IoExit />
+						EXIT
+					</div>
+				)}
 			</footer>
 		</div>
 	)
