@@ -78,9 +78,13 @@ export default function Home() {
 			<main className={styles.main}>
 				<Logo style={{ maxWidth: '300px' }} />
 				<h3>Suivi des cotisations</h3>
-				{periodes.map((periode) => (
-					<PublicPeriode key={periode._id} periode={periode} />
-				))}
+				{periodes.map((periode) =>
+					typeof periode.start !== 'undefined' ? (
+						<PublicPeriode key={periode._id} periode={periode} />
+					) : (
+						<h3 key={'noPeriode'}>Aucun trimestre trouvée...</h3>
+					)
+				)}
 			</main>
 
 			<footer className={styles.footer}>

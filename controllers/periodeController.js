@@ -34,7 +34,9 @@ const getPeriodes = async (req, res) => {
 		model: Player,
 	})
 	if (periodes) {
-		res.json(periodes)
+		periodes.length === 0
+			? res.json(['Aucune période'])
+			: res.json(periodes)
 	} else {
 		res.status(404).json({
 			message: "Aucune session à régler n'a été trouvée...",

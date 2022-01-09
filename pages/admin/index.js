@@ -87,9 +87,18 @@ export default function Home() {
 					) : (
 						<>
 							<h2>Périodes en cours</h2>
-							{periodes.map((periode) => (
-								<Periode key={periode._id} periode={periode} />
-							))}
+							{periodes.map((periode) =>
+								typeof periode.start !== 'undefined' ? (
+									<Periode
+										key={periode._id}
+										periode={periode}
+									/>
+								) : (
+									<h3 key={'noPeriode'}>
+										Aucun trimestre trouvée ...
+									</h3>
+								)
+							)}
 							<div
 								className={styles.addPeriode}
 								onClick={() => {

@@ -26,6 +26,8 @@ const Login = () => {
 			dispatch({ type: 'DONE_LOADING' })
 		} catch (error) {
 			dispatch({ type: 'DONE_LOADING' })
+			dispatch({ type: 'USER_LOGOUT' })
+			localStorage.removeItem('pilotaUser')
 			dispatch({
 				type: 'MESSAGE',
 				payload: {
@@ -63,7 +65,7 @@ const Login = () => {
 				</fieldset>
 			</form>
 			<button className={styles.login} onClick={login}>
-				Dio !
+				Jo !
 			</button>
 		</div>
 	)

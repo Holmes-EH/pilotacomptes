@@ -6,6 +6,8 @@ export default function reducer(state, action) {
 			return { ...state, periodes: action.payload }
 		case 'USER_LOGIN':
 			return { ...state, user: action.payload }
+		case 'USER_LOGOUT':
+			return { ...state, user: {} }
 		case 'LOADING':
 			return { ...state, loading: true }
 		case 'DONE_LOADING':
